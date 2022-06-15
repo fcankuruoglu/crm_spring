@@ -27,9 +27,31 @@ public class CompanyManager implements CompanyService {
 
     }
 
+    // TODO: Add success or error result
     @Override
-    public void update(Company company, int id) {
-        this.companyDao.update(company, id);
+    public void delete(int id) {
+        this.companyDao.deleteById(id);
+    }
+
+
+    // partial updating operation - it only updates company name of an existed company
+    @Override
+    public void updateCompanyName(int id,String companyName) {
+        this.companyDao.updateCompanyName(id, companyName);
+    }
+
+    // TODO: first check that id exists or not, if it exists then update company and return success result. However, if id does not exists return error result.
+    // TODO : check if is solid solution or it can be improved.
+    @Override
+    public void update(Company company) {
+        Integer companyId = company.getId();
+        Company companyTemp = companyDao.findById(companyId).get();
+        companyTemp.setCompanyName(company.getCompanyName());
+        companyTemp.setCompanyCity(company.getCompanyCity());
+        companyTemp.setCompanyAddress(company.getCompanyAddress());
+        companyTemp.setCompanyDomain(company.getCompanyDomain());
+        companyTemp.setCompanyPhoneNumber(company.getCompanyPhoneNumber());
+        this.companyDao.save(companyTemp);
     }
 
     @Override

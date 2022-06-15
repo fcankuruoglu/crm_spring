@@ -13,8 +13,8 @@ public interface CompanyDao extends JpaRepository<Company, Integer> {
 
     @Modifying
     @Transactional
-    @Query("update Company c set c.companyName = :#{#company.companyName}, c.companyAddress = :#{#company.companyAddress} where c.id=:id")
-    void update(@Param("company") Company company, int id);
+    @Query("update Company c set c.companyName = :companyName where c.id=:id")
+    void updateCompanyName(int id, String companyName);
     Company getByCompanyName(String companyName);
 
 }

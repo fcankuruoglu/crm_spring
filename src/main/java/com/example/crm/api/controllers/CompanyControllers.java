@@ -26,11 +26,19 @@ public class CompanyControllers {
     @PostMapping("add")
     public void add(@RequestBody Company company) {
         this.companyService.add(company);
-
     }
+    @DeleteMapping("delete")
+    public void delete(@RequestParam int id) {
+        this.companyService.delete(id);
+    }
+    @PutMapping("updateCompanyName")
+    public void updateCompanyName(@RequestParam String companyName,@RequestParam int id) {
+        this.companyService.updateCompanyName(id, companyName);
+    }
+
     @PutMapping("update")
-    public void update(@RequestBody Company company, int id) {
-        this.companyService.update(company, id);
+    public void update(@RequestBody Company company){
+        this.companyService.update(company);
     }
 
     @GetMapping("getByName")
