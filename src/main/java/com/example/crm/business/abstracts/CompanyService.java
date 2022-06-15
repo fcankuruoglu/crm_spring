@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CompanyService {
     List<Company> getAll();
-
+    // TODO: add getById and in controller get mapping should be /id
     void add(Company company);
     void delete(int id);
     void updateCompanyName(int id, String companyName);
