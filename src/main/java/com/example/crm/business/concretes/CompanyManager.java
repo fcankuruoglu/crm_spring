@@ -3,28 +3,36 @@ package com.example.crm.business.concretes;
 import com.example.crm.business.abstracts.CompanyService;
 import com.example.crm.dataAccess.abstracts.CompanyDao;
 import com.example.crm.entities.concretes.Company;
+import org.hibernate.Filter;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CompanyManager implements CompanyService {
     private CompanyDao companyDao;
+    private EntityManager entityManager;
 
     @Autowired
-    public CompanyManager(CompanyDao companyDao) { this.companyDao = companyDao; }
-
-    @Override
-    public List<Company> getAll() {
-        return new ArrayList<Company>(this.companyDao.findAll());
+    public CompanyManager(CompanyDao companyDao, EntityManager entityManager) { this.companyDao = companyDao;
+        this.entityManager = entityManager;
     }
-
+    @Override
+    public List<Company> getAll(boolean isDeleted) {
+        Session session = this.entityManager.unwrap(Session.class);
+        Filter filter = session.enableFilter("deletedCompanyFilter");
+        filter.setParameter("isDeleted", isDeleted);
+        ArrayList<Company> companiesWithFilter = new ArrayList<>(this.companyDao.findAll());
+        session.disableFilter("deletedCompanyFilter");
+        return companiesWithFilter;
+    }
     @Override
     public void add(Company company) {
         this.companyDao.save(company);
-
     }
 
     // TODO: Add success or error result

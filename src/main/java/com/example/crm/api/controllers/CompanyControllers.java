@@ -5,7 +5,6 @@ import com.example.crm.entities.concretes.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,8 +18,8 @@ public class CompanyControllers {
     }
 
     @GetMapping("getAll")
-    public List<Company> getAll() {
-        return this.companyService.getAll();
+    public List<Company> getAll(@RequestParam(value = "isDeleted", required = false, defaultValue = "false") boolean isDeleted) {
+        return this.companyService.getAll(isDeleted);
     }
 
     @PostMapping("add")

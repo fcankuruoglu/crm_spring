@@ -5,7 +5,7 @@ import com.example.crm.entities.concretes.Company;
 import java.util.List;
 
 public interface CompanyService {
-    List<Company> getAll();
+    List<Company> getAll(boolean isDeleted);
     // TODO: add getById and in controller get mapping should be /id
     void add(Company company);
     void delete(int id);
