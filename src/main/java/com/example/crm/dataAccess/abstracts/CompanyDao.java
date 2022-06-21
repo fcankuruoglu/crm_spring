@@ -2,6 +2,8 @@ package com.example.crm.dataAccess.abstracts;
 
 import com.example.crm.entities.concretes.Company;
 import com.example.crm.entities.concretes.EntityStatus;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,20 +13,21 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface CompanyDao extends JpaRepository<Company, Integer> {
-    @Modifying
-    @Transactional
-    @Query("update Company c set c.companyName = :companyName where c.id=:id")
-    void updateCompanyName(int id, String companyName);
+
     Company findByCompanyName(String companyName);
     List<Company> findByEntityStatus(EntityStatus entityStatus);
+    List<Company> findByEntityStatusOrderById(EntityStatus entityStatus);
 
     /**
      * findByID method use EntityManager find() method internally and getById method use EntityManager getReference() method.
      * Therefore, findById returns actual object and getById returns reference of object.
-     * /@Query ("From Company where id =:id and companyIsDeleted = false")
      **/
     Company findById(int id);
     Company findByIdAndEntityStatus(Integer id, EntityStatus entityStatus);
+    @Modifying
+    @Transactional
+    @Query("update Company c set c.companyName = :companyName where c.id=:id")
+    void updateCompanyName(int id, String companyName);
     @Modifying
     @Transactional
     @Query("update Company c set c.entityStatus = 0 where c.id =:id")

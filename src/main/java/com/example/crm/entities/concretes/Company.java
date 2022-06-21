@@ -40,6 +40,7 @@ public class Company {
     @Column(name = "phone_number")
     private String companyPhoneNumber;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name= "status")
     private EntityStatus entityStatus = EntityStatus.ACTIVE;
 

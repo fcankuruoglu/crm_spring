@@ -7,13 +7,16 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CompanyService {
+    List<Company> findAllActiveCompanies();
     List<Company> findAll();
-    List<Company> findAllx(boolean isDeleted);
-    Company findByIdx(int id); // to filter it use query in dao.
+    List<Company> findAllSorted();
+    Company findById(int id); // to filter it use query in dao.
     Company findByCompanyName(String companyName);
+    Company findActiveCompanyById(Integer id);
+
     void add(Company company);
     void delete(int id);
-    void updateCompanyName(int id, String companyName);
+    Company updateCompanyName(int id, String companyName);
 
     // TODO: check if id is not exists, will it create new data
     // FIXME: if id exists, update company - add result classes for if id does not exists
@@ -23,5 +26,7 @@ public interface CompanyService {
     void deleteCompany(Integer id);
     void activateCompany(Integer id);
     void disableCompany(Integer id);
-    Company findActiveCompanyById(Integer id);
+
+
+
 }
