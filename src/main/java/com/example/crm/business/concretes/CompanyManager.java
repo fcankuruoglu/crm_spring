@@ -2,11 +2,13 @@ package com.example.crm.business.concretes;
 
 import com.example.crm.business.abstracts.CompanyService;
 import com.example.crm.dataAccess.abstracts.CompanyDao;
+import com.example.crm.dataTransferObjects.CompanyDto;
 import com.example.crm.entities.concretes.Company;
 import com.example.crm.entities.concretes.EntityStatus;
 import com.example.crm.exception.custom.AlreadyExistsException;
 import com.example.crm.exception.custom.CompanyNotFoundException;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -14,14 +16,40 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
 public class CompanyManager implements CompanyService {
     private final CompanyDao companyDao;
+    private final ModelMapper mapper;
 
     @Autowired
-    public CompanyManager(CompanyDao companyDao) { this.companyDao = companyDao; }
+    public CompanyManager(CompanyDao companyDao, ModelMapper mapper) {
+        this.companyDao = companyDao;
+        this.mapper = mapper;
+    }
+
+    @Override
+    public List<CompanyDto> getAll(){
+        return this.companyDao.findByEntityStatusOrderById(EntityStatus.ACTIVE)
+                .stream()
+                .map(companyEntity -> mapper.map(companyEntity, CompanyDto.class))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public CompanyDto getByName(String companyName) {
+        Company company =  this.companyDao.findByCompanyName(companyName);
+        if(ObjectUtils.isEmpty(company)) {throw new CompanyNotFoundException(companyName);}
+        return mapper.map(company, CompanyDto.class);
+    }
+    @Override
+    public CompanyDto getById(int id){
+        Company company =this.companyDao.findById(id);
+        if(ObjectUtils.isEmpty(company)) {throw new CompanyNotFoundException(id);}
+        return mapper.map(company, CompanyDto.class);
+    }
+
     @Override
     public List<Company> findAll() {
         return new ArrayList<>(this.companyDao.findAll());

@@ -1,6 +1,7 @@
 package com.example.crm.api.controllers;
 
 import com.example.crm.business.abstracts.CompanyService;
+import com.example.crm.dataTransferObjects.CompanyDto;
 import com.example.crm.entities.concretes.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -21,9 +22,23 @@ public class CompanyControllers {
         this.companyService = companyService;
     }
 
+    @GetMapping("/getAll")
+    ResponseEntity<List<CompanyDto>> getAll(){
+        return ResponseEntity.status(200).body(this.companyService.getAll());
+    }
+    @GetMapping("/getByName")
+    ResponseEntity<CompanyDto> getByName(String companyName) {
+        return ResponseEntity.status(200).body(this.companyService.getByName(companyName));
+    }
+    @GetMapping("/getById")
+    ResponseEntity<CompanyDto> getById(int id) {
+        return ResponseEntity.status(200).body(this.companyService.getById(id));
+    }
+
+
 
     @GetMapping("/findAll")
-    public List<Company> getAll() {
+    public List<Company> findAll() {
         return this.companyService.findAll();
     }
     @GetMapping("findAllActiveCompanies")
@@ -32,7 +47,7 @@ public class CompanyControllers {
     }
     @GetMapping("/findAllSortedActiveCompanies")
     public List<Company> findAllActiveSorted() {
-        return this.companyService.findAllSorted();
+        return this.companyService.findAllActiveSorted();
     }
     @GetMapping("findAllSorted")
     public List<Company> findAllSorted() {
