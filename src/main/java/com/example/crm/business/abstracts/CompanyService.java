@@ -2,10 +2,10 @@ package com.example.crm.business.abstracts;
 
 import com.example.crm.dataTransferObjects.CompanyDto;
 import com.example.crm.entities.concretes.Company;
-import com.example.crm.entities.concretes.EntityStatus;
+
 
 import java.util.List;
-import java.util.Optional;
+
 
 public interface CompanyService {
     List<Company> findAllActiveCompanies();

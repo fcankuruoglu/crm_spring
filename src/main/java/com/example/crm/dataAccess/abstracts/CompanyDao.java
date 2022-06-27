@@ -2,8 +2,6 @@ package com.example.crm.dataAccess.abstracts;
 
 import com.example.crm.entities.concretes.Company;
 import com.example.crm.entities.concretes.EntityStatus;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

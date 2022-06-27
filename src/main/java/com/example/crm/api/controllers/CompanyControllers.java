@@ -4,7 +4,7 @@ import com.example.crm.business.abstracts.CompanyService;
 import com.example.crm.dataTransferObjects.CompanyDto;
 import com.example.crm.entities.concretes.Company;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
+
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +41,7 @@ public class CompanyControllers {
     public List<Company> findAll() {
         return this.companyService.findAll();
     }
-    @GetMapping("findAllActiveCompanies")
+    @GetMapping("/findAllActiveCompanies")
     public List<Company> findAllActiveCompanies() {
         return this.companyService.findAllActiveCompanies();
     }
@@ -49,7 +49,7 @@ public class CompanyControllers {
     public List<Company> findAllActiveSorted() {
         return this.companyService.findAllActiveSorted();
     }
-    @GetMapping("findAllSorted")
+    @GetMapping("/findAllSorted")
     public List<Company> findAllSorted() {
         return this.companyService.findAllSorted();
     }
