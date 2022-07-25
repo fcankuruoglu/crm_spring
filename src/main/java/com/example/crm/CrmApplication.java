@@ -13,8 +13,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-
-
 @SpringBootApplication
 @EnableSwagger2
 public class CrmApplication {
@@ -31,7 +29,8 @@ public class CrmApplication {
                 .paths(PathSelectors.any())
                 .build();
     }
-
+    @Bean
+    public PasswordEncoder passwordEncoder(){ return new BCryptPasswordEncoder(); }
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();

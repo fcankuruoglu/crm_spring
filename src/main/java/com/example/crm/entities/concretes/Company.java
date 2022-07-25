@@ -8,6 +8,7 @@ import org.hibernate.annotations.*;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.List;
 
 @Data   // lombok - getter and setter
 @AllArgsConstructor // lombok - constructor with all arguments
@@ -36,11 +37,9 @@ public class Company {
     @Column(name = "phone_number")
     private String companyPhoneNumber;
 
+
     @Enumerated(EnumType.ORDINAL)
     @Column(name= "status")
     private EntityStatus entityStatus = EntityStatus.ACTIVE;
-
-
-
 
 }

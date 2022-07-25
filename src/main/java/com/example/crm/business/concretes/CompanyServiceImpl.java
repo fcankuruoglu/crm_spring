@@ -20,12 +20,12 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class CompanyManager implements CompanyService {
+public class CompanyServiceImpl implements CompanyService {
     private final CompanyDao companyDao;
     private final ModelMapper mapper;
 
     @Autowired
-    public CompanyManager(CompanyDao companyDao, ModelMapper mapper) {
+    public CompanyServiceImpl(CompanyDao companyDao, ModelMapper mapper) {
         this.companyDao = companyDao;
         this.mapper = mapper;
     }
